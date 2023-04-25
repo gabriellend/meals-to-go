@@ -1,37 +1,33 @@
 import React from "react";
-import { Searchbar } from "react-native-paper";
-import SafeAreaView from "react-native-safe-area-view";
+
+import {
+  useFonts as useOswald,
+  Oswald_400Regular,
+} from "@expo-google-fonts/oswald";
+import { ThemeProvider } from "styled-components";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
-import { StatusBar, Text, View, StyleSheet, Platform } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { useFonts as useLato, Lato_400Regular } from "@expo-google-fonts/lato";
+
+import { theme } from "./src/infrastructure/theme";
+import { RestaurantsScreen } from "./src/features/restaurants/screens/restaurants-screen";
 
 export default function App() {
+  const [oswaldLoaded] = useOswald({
+    Oswald_400Regular,
+  });
+  const [latoLoaded] = useLato({
+    Lato_400Regular,
+  });
+  if (!oswaldLoaded || !latoLoaded) {
+    return null;
+  }
+
   return (
-    <SafeAreaProvider>
-      <SafeAreaView style={styles.container}>
-        <View style={styles.search}>
-          <Searchbar placeholder="search" />
-        </View>
-        <View style={styles.list}>
-          <Text>list</Text>
-        </View>
-      </SafeAreaView>
+    <>
+      <ThemeProvider theme={theme}>
+        <RestaurantsScreen />
+      </ThemeProvider>
       <ExpoStatusBar style="auto" />
-    </SafeAreaProvider>
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-  },
-  search: {
-    padding: 16,
-  },
-  list: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: "blue",
-  },
-});
