@@ -8,6 +8,7 @@ export const space = {
   size_04: "4px",
   size_08: "8px",
   size_16: "16px",
+  size_24: "24px",
   size_32: "32px",
   size_64: "64px",
 };
