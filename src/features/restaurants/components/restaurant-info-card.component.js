@@ -1,11 +1,20 @@
 import React from "react";
-import styled from "styled-components";
-import { Card } from "react-native-paper";
 import { SvgXml } from "react-native-svg";
 
 import star from "../../../../assets/star";
 import open from "../../../../assets/open";
+import { Text } from "../../../components/typography/text.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
+import {
+  RestaurantCard,
+  RestaurantCardCover,
+  Info,
+  Rating,
+  Address,
+  LeftSide,
+  RightSide,
+  Icon,
+} from "./restaurant-info-card.styles";
 
 export const RestaurantInfoCard = ({ restaurant = {} }) => {
   const {
@@ -27,7 +36,7 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
       <RestaurantCardCover source={{ uri: photos[0] }} key={name} />
       <Info>
         <LeftSide>
-          <Title>{name}</Title>
+          <Text variant="label">{name}</Text>
           <Rating>
             {ratingArray.map((val, i) => (
               <SvgXml key={`star ${i + 1}`} xml={star} width={20} height={20} />
@@ -40,7 +49,7 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
             <SvgXml xml={open} width={40} height={40} />
           )}
           {isClosedTemporarily && !isOpenNow && (
-            <ClosedText variant="label">CLOSED{"\n"}TEMPORARILY</ClosedText>
+            <Text variant="error">CLOSED TEMPORARILY</Text>
           )}
           <Spacer position="left" size="large">
             <Icon source={{ uri: icon }} />
@@ -50,54 +59,3 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
     </RestaurantCard>
   );
 };
-
-const RestaurantCard = styled(Card)`
-  background-color: ${(props) => props.theme.colors.bg.primary};
-`;
-
-const RestaurantCardCover = styled(Card.Cover)`
-  padding: ${(props) => props.theme.space.size_16};
-  background-color: ${(props) => props.theme.colors.bg.primary};
-`;
-
-const Info = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  padding-left: ${(props) => props.theme.space.size_16};
-  padding-bottom: ${(props) => props.theme.space.size_16};
-  padding-right: ${(props) => props.theme.space.size_24};
-`;
-
-const Title = styled.Text`
-  color: ${(props) => props.theme.colors.ui.primary};
-  font-size: ${(props) => props.theme.fontSizes.body};
-  font-family: ${(props) => props.theme.fonts.heading};
-`;
-
-const Rating = styled.View`
-  flex-direction: row;
-  padding-top: ${(props) => props.theme.space.size_04};
-`;
-
-const Address = styled.Text`
-  font-family: ${(props) => props.theme.fonts.body};
-  font-size: ${(props) => props.theme.fontSizes.caption};
-`;
-
-const LeftSide = styled.View``;
-
-const RightSide = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-
-const ClosedText = styled.Text`
-  color: ${(props) => props.theme.colors.text.error};
-  font-weight: ${(props) => props.theme.fontWeights.bold};
-  text-align: center;
-`;
-
-const Icon = styled.Image`
-  width: 25px;
-  height: 25px;
-`;
