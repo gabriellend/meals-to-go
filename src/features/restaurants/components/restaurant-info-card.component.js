@@ -32,7 +32,7 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
   const ratingArray = Array.from(new Array(Math.floor(rating)));
 
   return (
-    <RestaurantCard elevation={5}>
+    <RestaurantCard elevation={5} key={name}>
       <RestaurantCardCover source={{ uri: photos[0] }} key={name} />
       <Info>
         <LeftSide>
@@ -45,13 +45,11 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
           <Address>{address}</Address>
         </LeftSide>
         <RightSide>
-          {isOpenNow && !isClosedTemporarily && (
-            <SvgXml xml={open} width={40} height={40} />
-          )}
-          {isClosedTemporarily && !isOpenNow && (
+          {isOpenNow && <SvgXml xml={open} width={40} height={40} />}
+          {isClosedTemporarily && (
             <Text variant="error">CLOSED TEMPORARILY</Text>
           )}
-          <Spacer position="left" size="large">
+          <Spacer position="left" size="medium">
             <Icon source={{ uri: icon }} />
           </Spacer>
         </RightSide>

@@ -4,6 +4,7 @@ import {
   useFonts as useOswald,
   Oswald_400Regular,
 } from "@expo-google-fonts/oswald";
+import { Platform } from "react-native";
 import { ThemeProvider } from "styled-components";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
@@ -49,22 +50,32 @@ export default function App() {
       tabBarActiveTintColor: "tomato",
       tabBarInactiveTintColor: "gray",
       headerShown: false,
+      tabBarStyle:
+        Platform.OS === "android"
+          ? {
+              height: 60,
+              paddingBottom: 5,
+              paddingTop: 5,
+            }
+          : null,
     };
   };
 
   return (
     <>
       <ThemeProvider theme={theme}>
-        <NavigationContainer>
-          <Tab.Navigator
-            initialRouteName="Restaurants"
-            screenOptions={createScreenOptions}
-          >
-            <Tab.Screen name="Restaurants" component={RestaurantsScreen} />
-            <Tab.Screen name="Map" component={MapScreen} />
-            <Tab.Screen name="Settings" component={SettingsScreen} />
-          </Tab.Navigator>
-        </NavigationContainer>
+        <RestaurantsContextProvider>
+          <NavigationContainer>
+            <Tab.Navigator
+              initialRouteName="Restaurants"
+              screenOptions={createScreenOptions}
+            >
+              <Tab.Screen name="Restaurants" component={RestaurantsScreen} />
+              <Tab.Screen name="Map" component={MapScreen} />
+              <Tab.Screen name="Settings" component={SettingsScreen} />
+            </Tab.Navigator>
+          </NavigationContainer>
+        </RestaurantsContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>
