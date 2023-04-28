@@ -17,6 +17,7 @@ import {
   MapScreen,
   SettingsScreen,
 } from "./src/features/restaurants/screens/index";
+import { RestaurantsContextProvider } from "src/services/restaurants/restaurants.context";
 
 const TabBarIcon = (iconName, size, color) => (
   <Ionicons name={iconName} size={size} color={color} />
