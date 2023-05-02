@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useMemo, createContext } from "react";
+import React, { useState, useEffect, createContext } from "react";
 
-import { restaurantsRequest } from "./restaurants.service";
+import { requestRestaurants } from "./restaurants.service";
 
 export const RestaurantsContext = createContext();
 
@@ -15,9 +15,10 @@ export const RestaurantsContextProvider = ({ children }) => {
 
   const retrieveRestaurants = () => {
     setIsLoading(true);
+
     setTimeout(async () => {
-      const result = await restaurantsRequest();
-      if (!result) {
+      const result = await requestRestaurants();
+      if (result.error) {
         setIsLoading(false);
         setError(result);
         return;

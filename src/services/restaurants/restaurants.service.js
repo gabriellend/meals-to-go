@@ -2,7 +2,7 @@ import camelize from "camelize";
 
 import { mocks, mockImages } from "./mock";
 
-export const restaurantsRequest = async (
+export const requestRestaurants = async (
   location = "37.7749295,-122.4194155"
 ) => {
   try {
@@ -14,8 +14,8 @@ export const restaurantsRequest = async (
     const restaurants = await Promise.resolve(mock);
     return transformRestaurants(restaurants);
   } catch (err) {
-    console.log("restaurantRequest error:", err);
-    return false;
+    console.log("requestRestaurants error:", err);
+    return { error: err };
   }
 };
 
@@ -33,6 +33,6 @@ const transformRestaurants = ({ results = [] }) => {
       isClosedTemporarily: restaurant.business_status === "CLOSED_TEMPORARILY",
     };
   });
-  console.log(JSON.stringify(mappedRestaurants, null, 2));
+
   return camelize(mappedRestaurants);
 };
