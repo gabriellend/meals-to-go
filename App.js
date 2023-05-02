@@ -19,6 +19,7 @@ import {
   SettingsScreen,
 } from "./src/features/restaurants/screens/index";
 import { RestaurantsContextProvider } from "src/services/restaurants/restaurants.context";
+import { LocationContextProvider } from "src/services/location/location.context";
 
 const TabBarIcon = (iconName, size, color) => (
   <Ionicons name={iconName} size={size} color={color} />
@@ -64,18 +65,20 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <RestaurantsContextProvider>
-          <NavigationContainer>
-            <Tab.Navigator
-              initialRouteName="Restaurants"
-              screenOptions={createScreenOptions}
-            >
-              <Tab.Screen name="Restaurants" component={RestaurantsScreen} />
-              <Tab.Screen name="Map" component={MapScreen} />
-              <Tab.Screen name="Settings" component={SettingsScreen} />
-            </Tab.Navigator>
-          </NavigationContainer>
-        </RestaurantsContextProvider>
+        <LocationContextProvider>
+          <RestaurantsContextProvider>
+            <NavigationContainer>
+              <Tab.Navigator
+                initialRouteName="Restaurants"
+                screenOptions={createScreenOptions}
+              >
+                <Tab.Screen name="Restaurants" component={RestaurantsScreen} />
+                <Tab.Screen name="Map" component={MapScreen} />
+                <Tab.Screen name="Settings" component={SettingsScreen} />
+              </Tab.Navigator>
+            </NavigationContainer>
+          </RestaurantsContextProvider>
+        </LocationContextProvider>
       </ThemeProvider>
       <ExpoStatusBar style="auto" />
     </>
